@@ -1,14 +1,22 @@
-var MultiSelector = function() {
-  this.evaluate = function() {
+function constructStringFromChoices(choices, separator) {
     var selected = [];
 
-    this.choices.forEach(function(choice) {
+    choices.forEach(function(choice) {
         if (choice[2]) {
             selected.push(choice[1]);
         }
     });
 
-    return selected.join(this.separator);
+    return selected.join(separator);
+}
+
+var MultiSelector = function() {
+  this.evaluate = function() {
+    return constructStringFromChoices(this.choices, this.separator);
+  }
+
+  this.title = function() {
+    return constructStringFromChoices(this.choices, this.separator);
   }
 }
 
@@ -24,7 +32,7 @@ MultiSelector.identifier = "me.elliotchance.MultiSelector";
 MultiSelector.title = "Multi Selector";
 
 // Link to the Dynamic Value documentation.
-//MultiSelector.help = "https://paw.cloud/docs";
+MultiSelector.help = "https://github.com/elliotchance/multiselector";
 
 // Call to register extension function.
 registerDynamicValueClass(MultiSelector);
