@@ -16,17 +16,25 @@ var MultiSelector = function() {
   }
 
   this.title = function() {
-    return constructStringFromChoices(this.choices, this.separator);
+      if (!this.choices.length) {
+          return "Multi Selector \uD83D\uDCCB"
+      }
+
+      return "\uD83D\uDCCB"
+  }
+
+  this.text = function() {
+    return constructStringFromChoices(this.choices, this.separator) || null;
   }
 }
 
 MultiSelector.inputs = [
-    InputField("choices", "Choices", "KeyValueList"),
+    InputField("choices", "Choices", "KeyValueList", {persisted: true}),
     InputField("separator", "Separator", "String", {defaultValue: ","})
 ];
 
 // Set the Extension Identifier (must be same as the directory name).
-MultiSelector.identifier = "me.elliotchance.MultiSelector";
+MultiSelector.identifier = "me.elliotchance.MultiSelectorDynamicValue";
 
 // Give a display name to your Dynamic Value.
 MultiSelector.title = "Multi Selector";
