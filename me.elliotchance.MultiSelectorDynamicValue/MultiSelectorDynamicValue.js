@@ -3,7 +3,7 @@ function constructStringFromChoices(choices, separator) {
 
     choices.forEach(function(choice) {
         if (choice[2]) {
-            selected.push(choice[1]);
+            selected.push(choice[0]);
         }
     });
 
@@ -13,23 +13,29 @@ function constructStringFromChoices(choices, separator) {
 var MultiSelector = function() {
   this.evaluate = function() {
     return constructStringFromChoices(this.choices, this.separator);
-  }
+  };
 
   this.title = function() {
+      var clipboardEmoji = '\uD83D\uDCCB';
+
       if (!this.choices.length) {
-          return "Multi Selector \uD83D\uDCCB"
+          return "Multi Selector " + clipboardEmoji;
       }
 
-      return "\uD83D\uDCCB"
-  }
+      return clipboardEmoji;
+  };
 
   this.text = function() {
     return constructStringFromChoices(this.choices, this.separator) || null;
-  }
-}
+  };
+};
 
 MultiSelector.inputs = [
-    InputField("choices", "Choices", "KeyValueList", {persisted: true}),
+    InputField("choices", "Choices", "KeyValueList", {
+      persisted: true,
+      keyName: "Value",
+      valueName: "Description"
+    }),
     InputField("separator", "Separator", "String", {defaultValue: ","})
 ];
 
